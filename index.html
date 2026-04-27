@@ -100,28 +100,33 @@
     .hero-desc { font-size: 17px; color: var(--sub); margin-bottom: 36px; max-width: 440px; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
     .hero-visual { display: flex; justify-content: center; align-items: center; }
-    .phone-mock {
-      width: 220px; height: 440px;
-      background: var(--ink); border-radius: 36px;
-      box-shadow: 0 32px 80px rgba(26,26,46,.25);
-      position: relative; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
+    .browser-mock {
+      width: 360px; max-width: 100%;
+      background: var(--white); border-radius: 16px;
+      box-shadow: 0 32px 80px rgba(26,26,46,.18);
+      overflow: hidden;
     }
-    .phone-mock-inner {
-      width: 88%; height: 90%;
+    .browser-bar {
+      background: #E8E8ED; padding: 10px 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .browser-dot {
+      width: 11px; height: 11px; border-radius: 50%;
+    }
+    .browser-url {
+      flex: 1; background: var(--white); border-radius: 6px;
+      padding: 4px 10px; font-size: 11px; color: var(--sub);
+      margin-left: 4px;
+    }
+    .browser-screen {
+      height: 220px;
       background: linear-gradient(160deg, #4F6EF7 0%, #7C3AED 100%);
-      border-radius: 28px;
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 12px;
+      align-items: center; justify-content: center; gap: 10px;
     }
-    .phone-mock-icon { font-size: 48px; }
-    .phone-mock-label { color: rgba(255,255,255,.8); font-size: 13px; font-weight: 600; }
-    .phone-mock-badge {
-      position: absolute; top: 28px; right: -12px;
-      background: var(--accent2); color: var(--white);
-      font-size: 12px; font-weight: 700; padding: 6px 12px;
-      border-radius: 8px; box-shadow: 0 4px 12px rgba(245,166,35,.35);
-    }
+    .browser-screen-icon { font-size: 40px; }
+    .browser-screen-label { color: rgba(255,255,255,.85); font-size: 14px; font-weight: 700; }
+    .browser-screen-sub { color: rgba(255,255,255,.55); font-size: 12px; }
 
     /* ===== アプリ一覧 ===== */
     #apps { background: var(--white); }
@@ -275,7 +280,7 @@
       .service-inner,
       .about-inner { grid-template-columns: 1fr; gap: 40px; }
       .hero-visual { order: -1; }
-      .phone-mock { width: 160px; height: 320px; }
+      .browser-mock { width: 100%; }
       .nav-links { display: none; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .cta-actions { flex-direction: column; align-items: center; }
@@ -294,7 +299,7 @@
     <div class="nav-inner">
       <div class="logo">かたち<span>スタジオ</span></div>
       <div class="nav-links">
-        <a href="#apps">アプリ</a>
+        <a href="#apps">サービス</a>
         <a href="#service">開発依頼</a>
         <a href="#about">について</a>
         <a href="#contact">お問い合わせ</a>
@@ -321,12 +326,18 @@
         </div>
       </div>
       <div class="hero-visual">
-        <div class="phone-mock">
-          <div class="phone-mock-inner">
-            <div class="phone-mock-icon">📈</div>
-            <div class="phone-mock-label">決算レーダー</div>
+        <div class="browser-mock">
+          <div class="browser-bar">
+            <div class="browser-dot" style="background:#FF5F57;"></div>
+            <div class="browser-dot" style="background:#FFBD2E;"></div>
+            <div class="browser-dot" style="background:#28C840;"></div>
+            <div class="browser-url">kessan-radar.jp</div>
           </div>
-          <div class="phone-mock-badge">NEW</div>
+          <div class="browser-screen">
+            <div class="browser-screen-icon">📡</div>
+            <div class="browser-screen-label">決算レーダー</div>
+            <div class="browser-screen-sub">企業の決算発表をいち早くキャッチ</div>
+          </div>
         </div>
       </div>
     </div>
@@ -337,9 +348,9 @@
 <section id="apps" class="section">
   <div class="container">
     <div class="apps-header">
-      <p class="section-label">Our Apps</p>
-      <h2 class="section-title">自社開発アプリ</h2>
-      <p class="section-sub">かたちスタジオが開発・公開しているアプリをご紹介します。</p>
+      <p class="section-label">Our Services</p>
+      <h2 class="section-title">自社開発サービス</h2>
+      <p class="section-sub">かたちスタジオが開発・公開しているWebサービスをご紹介します。</p>
     </div>
     <div class="apps-grid">
 
@@ -347,26 +358,26 @@
       <div class="app-card">
         <div class="app-icon" style="background: linear-gradient(135deg, #4F6EF7, #7C3AED);">📡</div>
         <div class="app-name">決算レーダー</div>
-        <p class="app-desc">企業の決算発表を瞬時に捉え、投資判断を加速させるアプリ。見逃しがちな発表タイミングをプッシュ通知でお知らせし、チャンスを逃しません。</p>
+        <p class="app-desc">企業の決算発表を瞬時に捉え、投資判断を加速させるWebサービス。見逃しがちな発表タイミングをいち早くキャッチし、チャンスを逃しません。</p>
         <div class="app-tags">
-          <span class="tag">iOS</span>
+          <span class="tag">Web</span>
           <span class="tag">投資・株式</span>
-          <span class="tag">通知</span>
+          <span class="tag">決算情報</span>
         </div>
-        <a href="#" class="app-link">App Store で見る</a>
+        <a href="https://www.kessan-radar.jp/" target="_blank" rel="noopener" class="app-link">サービスを見る</a>
       </div>
 
       <!-- トレログ -->
       <div class="app-card">
         <div class="app-icon" style="background: linear-gradient(135deg, #F5A623, #E8440A);">📔</div>
         <div class="app-name">トレログ</div>
-        <p class="app-desc">トレードにおけるルール管理と日記によるFOMO対策アプリ。自分のルールを記録・振り返ることで、感情に流されない安定したトレードを支援します。</p>
+        <p class="app-desc">トレードにおけるルール管理と日記によるFOMO対策Webサービス。自分のルールを記録・振り返ることで、感情に流されない安定したトレードを支援します。</p>
         <div class="app-tags">
-          <span class="tag">iOS</span>
+          <span class="tag">Web</span>
           <span class="tag">トレード日記</span>
           <span class="tag">ルール管理</span>
         </div>
-        <a href="#" class="app-link">App Store で見る</a>
+        <a href="https://steady-mind.vercel.app/" target="_blank" rel="noopener" class="app-link">サービスを見る</a>
       </div>
 
     </div>
@@ -421,7 +432,7 @@
           <div class="price-range">¥30,000〜</div>
           <div class="price-note">内容により要相談</div>
           <div class="price-features">
-            <div class="price-feature">iOS / Android / Web に対応</div>
+            <div class="price-feature">Web アプリ・サービス開発に対応</div>
             <div class="price-feature">要件定義・画面設計込み</div>
             <div class="price-feature">個人・副業・スタートアップ歓迎</div>
             <div class="price-feature">秘密保持契約（NDA）対応可</div>
@@ -478,13 +489,12 @@
           使いやすさとデザインにこだわったアプリを開発・公開するほか、個人・中小企業・スタートアップからの開発依頼を受け付けています。
         </p>
         <div class="skills">
-          <span class="skill-chip">Swift / SwiftUI</span>
-          <span class="skill-chip">Kotlin</span>
-          <span class="skill-chip">React Native</span>
-          <span class="skill-chip">Flutter</span>
           <span class="skill-chip">React / Next.js</span>
+          <span class="skill-chip">TypeScript</span>
+          <span class="skill-chip">Node.js</span>
           <span class="skill-chip">Firebase</span>
           <span class="skill-chip">Supabase</span>
+          <span class="skill-chip">Vercel</span>
           <span class="skill-chip">UI / UX Design</span>
         </div>
       </div>
@@ -515,7 +525,7 @@
     <div class="footer-main">
       <div class="footer-logo">かたちスタジオ</div>
       <div class="footer-links">
-        <a href="#apps">アプリ</a>
+        <a href="#apps">サービス</a>
         <a href="#service">開発依頼</a>
         <a href="#about">について</a>
         <a href="#contact">お問い合わせ</a>
