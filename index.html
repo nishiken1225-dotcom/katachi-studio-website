@@ -1,398 +1,699 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>かたちスタジオ | アプリ開発・制作</title>
-  <meta name="description" content="かたちスタジオは、使いやすいモバイル・Webアプリを開発するスタジオです。アプリ開発の受注・相談も受け付けています。">
-  <meta property="og:title" content="かたちスタジオ | アプリ開発・制作">
-  <meta property="og:description" content="使いやすいアプリを、いっしょに。かたちスタジオのアプリ紹介・開発受注はこちら。">
-  <meta property="og:type" content="website">
-  <style>
-    /* ===== リセット・基本 ===== */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --ink:     #1A1A2E;
-      --sub:     #4A4A6A;
-      --accent:  #4F6EF7;
-      --accent2: #F5A623;
-      --bg:      #FAFAFA;
-      --bg2:     #F2F2F7;
-      --white:   #FFFFFF;
-      --radius:  12px;
-      --shadow:  0 4px 24px rgba(26,26,46,.08);
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.7;
-      font-size: 16px;
-    }
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>かたちスタジオ | アプリ開発・制作</title>
+<meta name="description" content="かたちスタジオは、使いやすいWebアプリ・モバイルアプリを開発するスタジオです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ─────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Noto Sans JP', sans-serif;
+  background:#F2F0EB;
+  color:#1A2340;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a { color:inherit; text-decoration:none; }
+img { display:block; max-width:100%; }
 
-    /* ===== ユーティリティ ===== */
-    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-    .section { padding: 80px 0; }
-    .section-label {
-      font-size: 12px; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
-    }
-    .section-title {
-      font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.25;
-      letter-spacing: -.02em; margin-bottom: 16px;
-    }
-    .section-sub { font-size: 16px; color: var(--sub); max-width: 520px; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 28px; border-radius: 100px;
-      font-size: 15px; font-weight: 700; cursor: pointer;
-      transition: transform .15s, box-shadow .15s;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,110,247,.3); }
-    .btn-primary { background: var(--accent); color: var(--white); }
-    .btn-outline {
-      background: transparent; color: var(--ink);
-      border: 2px solid rgba(26,26,46,.15);
-    }
-    .btn-outline:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+/* ── Tokens ────────────────────────────── */
+:root {
+  --blue:    #2E8BE0;
+  --blue2:   #1A6FD4;
+  --blue-lt: #EBF4FF;
+  --orange:  #F5A020;
+  --org-lt:  #FFF4E0;
+  --navy:    #1A2340;
+  --ink:     #2A3050;
+  --muted:   #7A849A;
+  --cream:   #F2F0EB;
+  --white:   #FFFFFF;
+  --paper:   #F8F7F3;
+  --border:  rgba(26,35,64,.09);
+  --r:       16px;
+  --shadow:  0 4px 24px rgba(26,35,64,.08);
+  --shadow2: 0 16px 48px rgba(26,35,64,.12);
+}
 
-    /* ===== ナビ ===== */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(250,250,250,.85); backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(0,0,0,.06);
-    }
-    .nav-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 64px;
-    }
-    .logo { font-size: 18px; font-weight: 800; letter-spacing: -.03em; }
-    .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 32px; font-size: 14px; font-weight: 600; }
-    .nav-links a { color: var(--sub); transition: color .15s; }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-cta { font-size: 14px; padding: 10px 20px; }
+/* ── Utilities ─────────────────────────── */
+.wrap { max-width:1080px; margin:0 auto; padding:0 36px; }
+@media(max-width:600px) { .wrap { padding:0 20px; } }
 
-    /* ===== ヒーロー ===== */
-    .hero {
-      padding: 96px 0 80px;
-      background: linear-gradient(135deg, #EEF2FF 0%, #F8F9FF 60%, #FFF8ED 100%);
-    }
-    .hero-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 48px; align-items: center;
-    }
-    .hero-eyebrow {
-      display: inline-block; background: var(--white);
-      border: 1px solid rgba(79,110,247,.2);
-      border-radius: 100px; padding: 4px 14px;
-      font-size: 13px; font-weight: 600; color: var(--accent);
-      margin-bottom: 20px;
-    }
-    .hero-title {
-      font-size: clamp(32px, 5vw, 56px); font-weight: 900;
-      line-height: 1.15; letter-spacing: -.03em; margin-bottom: 20px;
-    }
-    .hero-title em { font-style: normal; color: var(--accent); }
-    .hero-desc { font-size: 17px; color: var(--sub); margin-bottom: 36px; max-width: 440px; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    .hero-visual { display: flex; justify-content: center; align-items: center; }
-    .browser-mock {
-      width: 360px; max-width: 100%;
-      background: var(--white); border-radius: 16px;
-      box-shadow: 0 32px 80px rgba(26,26,46,.18);
-      overflow: hidden;
-    }
-    .browser-bar {
-      background: #E8E8ED; padding: 10px 14px;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .browser-dot {
-      width: 11px; height: 11px; border-radius: 50%;
-    }
-    .browser-url {
-      flex: 1; background: var(--white); border-radius: 6px;
-      padding: 4px 10px; font-size: 11px; color: var(--sub);
-      margin-left: 4px;
-    }
-    .browser-screen {
-      height: 220px;
-      background: linear-gradient(160deg, #4F6EF7 0%, #7C3AED 100%);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 10px;
-    }
-    .browser-screen-icon { font-size: 40px; }
-    .browser-screen-label { color: rgba(255,255,255,.85); font-size: 14px; font-weight: 700; }
-    .browser-screen-sub { color: rgba(255,255,255,.55); font-size: 12px; }
+/* ── Reveal ────────────────────────────── */
+.reveal {
+  opacity:0; transform:translateY(24px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.in { opacity:1; transform:none; }
+.d1 { transition-delay:.1s; }
+.d2 { transition-delay:.2s; }
+.d3 { transition-delay:.32s; }
+.d4 { transition-delay:.44s; }
 
-    /* ===== アプリ一覧 ===== */
-    #apps { background: var(--white); }
-    .apps-header { text-align: center; margin-bottom: 56px; }
-    .apps-header .section-sub { margin: 0 auto; }
-    .apps-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-    }
-    .app-card {
-      background: var(--bg2); border-radius: var(--radius);
-      padding: 32px; transition: transform .2s, box-shadow .2s;
-    }
-    .app-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-    .app-icon {
-      width: 64px; height: 64px; border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px; margin-bottom: 16px;
-    }
-    .app-name { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
-    .app-desc { font-size: 15px; color: var(--sub); margin-bottom: 20px; line-height: 1.7; }
-    .app-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
-    .tag {
-      font-size: 11px; font-weight: 700; padding: 3px 10px;
-      border-radius: 100px; background: rgba(79,110,247,.1); color: var(--accent);
-    }
-    .app-link {
-      font-size: 14px; font-weight: 700; color: var(--accent);
-      display: inline-flex; align-items: center; gap: 4px;
-    }
-    .app-link::after { content: "→"; transition: transform .15s; }
-    .app-link:hover::after { transform: translateX(4px); }
+/* ── Section labels ────────────────────── */
+.label {
+  font-family:'Inter', sans-serif;
+  font-size:10.5px; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:14px;
+  display:flex; align-items:center; gap:10px;
+}
+.label::before { content:''; width:18px; height:1.5px; background:var(--blue); }
 
-    /* ===== サービス・価格 ===== */
-    #service { background: var(--bg2); }
-    .service-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 64px; align-items: start;
-    }
-    .flow-list { display: flex; flex-direction: column; gap: 0; }
-    .flow-item {
-      display: flex; gap: 20px; padding-bottom: 32px;
-      position: relative;
-    }
-    .flow-item:not(:last-child)::before {
-      content: ""; position: absolute;
-      left: 19px; top: 40px; bottom: 0; width: 2px;
-      background: rgba(79,110,247,.15);
-    }
-    .flow-num {
-      width: 40px; height: 40px; flex-shrink: 0;
-      background: var(--accent); color: var(--white);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 15px; font-weight: 800;
-    }
-    .flow-body { padding-top: 6px; }
-    .flow-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-    .flow-desc { font-size: 14px; color: var(--sub); }
-    .price-cards { display: flex; flex-direction: column; gap: 16px; }
-    .price-card {
-      background: var(--white); border-radius: var(--radius);
-      padding: 28px; box-shadow: var(--shadow);
-    }
-    .price-card-label { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 6px; letter-spacing: .05em; }
-    .price-card-name { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
-    .price-range {
-      font-size: clamp(24px, 3vw, 34px); font-weight: 900;
-      letter-spacing: -.03em; margin-bottom: 4px;
-    }
-    .price-note { font-size: 13px; color: var(--sub); margin-bottom: 20px; }
-    .price-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-    .price-feature {
-      display: flex; align-items: flex-start; gap: 10px;
-      font-size: 14px;
-    }
-    .price-feature::before { content: "✓"; color: var(--accent); font-weight: 800; flex-shrink: 0; }
+.sec-title {
+  font-size:clamp(26px,4vw,46px);
+  font-weight:900;
+  letter-spacing:-.025em;
+  line-height:1.2;
+  color:var(--navy);
+}
+.sec-sub {
+  font-size:15.5px; line-height:1.85;
+  color:var(--muted);
+  max-width:460px;
+}
 
-    /* ===== について ===== */
-    #about { background: var(--white); }
-    .about-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 64px; align-items: center;
-    }
-    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .stat-card {
-      background: var(--bg2); border-radius: var(--radius);
-      padding: 24px; text-align: center;
-    }
-    .stat-num {
-      font-size: 36px; font-weight: 900; color: var(--accent);
-      letter-spacing: -.03em; line-height: 1.1;
-    }
-    .stat-label { font-size: 13px; color: var(--sub); margin-top: 4px; }
-    .about-text .section-sub { margin-top: 12px; }
-    .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-    .skill-chip {
-      background: var(--bg2); border-radius: 8px;
-      padding: 6px 14px; font-size: 13px; font-weight: 600;
-    }
+/* ════════════════════════════════════════ */
+/*  NAV                                     */
+/* ════════════════════════════════════════ */
+.nav {
+  position:fixed; top:0; left:0; right:0; z-index:900;
+  height:68px;
+  display:flex; align-items:center;
+  transition:background .35s, box-shadow .35s;
+}
+.nav.scrolled {
+  background:rgba(242,240,235,.93);
+  backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--border);
+}
+.nav-inner {
+  display:flex; align-items:center;
+  justify-content:space-between; width:100%;
+}
+.nav-logo img { height:52px; object-fit:contain; border-radius:6px; }
+.nav-links {
+  display:flex; gap:34px;
+  font-size:13.5px; font-weight:500; color:var(--ink);
+  letter-spacing:.02em;
+}
+.nav-links a { transition:color .2s; position:relative; }
+.nav-links a:hover { color:var(--blue); }
+.nav-cta {
+  background:var(--blue);
+  color:var(--white);
+  padding:10px 22px; border-radius:100px;
+  font-size:13px; font-weight:700;
+  transition:all .2s;
+  box-shadow:0 4px 16px rgba(46,139,224,.25);
+}
+.nav-cta:hover { background:var(--blue2); transform:translateY(-1px); box-shadow:0 6px 20px rgba(46,139,224,.35); }
+@media(max-width:768px) { .nav-links { display:none; } }
 
-    /* ===== CTA ===== */
-    .cta-section {
-      background: linear-gradient(135deg, var(--ink) 0%, #2D2B55 100%);
-      padding: 80px 0; text-align: center;
-    }
-    .cta-section .section-label { color: rgba(255,255,255,.5); }
-    .cta-section .section-title { color: var(--white); }
-    .cta-section .section-sub { color: rgba(255,255,255,.6); margin: 16px auto 40px; }
-    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .btn-white { background: var(--white); color: var(--ink); }
-    .btn-white:hover { box-shadow: 0 8px 32px rgba(255,255,255,.2); }
+/* ════════════════════════════════════════ */
+/*  HERO                                    */
+/* ════════════════════════════════════════ */
+.hero {
+  min-height:100svh;
+  background:var(--cream);
+  display:flex; align-items:center;
+  padding:100px 0 80px;
+  position:relative; overflow:hidden;
+}
 
-    /* ===== フッター ===== */
-    footer {
-      background: var(--ink); color: rgba(255,255,255,.45);
-      padding: 40px 0 32px;
-    }
-    .footer-main {
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 16px; padding-bottom: 32px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .footer-logo { font-size: 16px; font-weight: 800; color: var(--white); }
-    .footer-links { display: flex; gap: 24px; font-size: 13px; }
-    .footer-links a { transition: color .15s; }
-    .footer-links a:hover { color: var(--white); }
+/* logo-inspired geometric shapes */
+.geo {
+  position:absolute;
+  border-radius:inherit;
+  pointer-events:none;
+}
+.geo-triangle {
+  right:6%; top:10%;
+  width:480px; height:480px;
+  background:linear-gradient(135deg, rgba(46,139,224,.10) 0%, rgba(46,139,224,.04) 100%);
+  clip-path:polygon(50% 0%, 0% 100%, 100% 100%);
+  animation:geoFloat 12s ease-in-out infinite;
+}
+.geo-square {
+  right:12%; top:22%;
+  width:300px; height:300px;
+  border-radius:28px;
+  background:linear-gradient(135deg, rgba(245,160,32,.10) 0%, rgba(245,160,32,.04) 100%);
+  animation:geoFloat 16s ease-in-out infinite reverse;
+}
+.geo-circle {
+  left:-80px; bottom:-80px;
+  width:320px; height:320px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(46,139,224,.07) 0%, transparent 70%);
+  animation:geoFloat 18s ease-in-out infinite;
+}
+@keyframes geoFloat {
+  0%,100% { transform:translate(0,0) rotate(0deg); }
+  33%  { transform:translate(8px,-12px) rotate(2deg); }
+  66%  { transform:translate(-6px,6px) rotate(-1deg); }
+}
 
-    /* 特定商取引法 */
-    .tokushoho {
-      margin-top: 28px; font-size: 12px; line-height: 2;
-    }
-    .tokushoho-title {
-      font-size: 11px; font-weight: 700; letter-spacing: .08em;
-      color: rgba(255,255,255,.35); margin-bottom: 12px; text-transform: uppercase;
-    }
-    .tokushoho-grid {
-      display: grid; grid-template-columns: max-content 1fr;
-      gap: 2px 20px; max-width: 600px;
-    }
-    .tokushoho-key { color: rgba(255,255,255,.35); white-space: nowrap; }
-    .tokushoho-val { color: rgba(255,255,255,.55); }
-    .footer-copy {
-      margin-top: 28px; font-size: 12px; text-align: right;
-    }
+/* subtle dot grid */
+.hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image:radial-gradient(circle, rgba(26,35,64,.07) 1px, transparent 1px);
+  background-size:32px 32px;
+  pointer-events:none;
+}
 
-    /* ===== レスポンシブ ===== */
-    @media (max-width: 768px) {
-      .section { padding: 56px 0; }
-      .hero { padding: 64px 0 56px; }
-      .hero-inner,
-      .service-inner,
-      .about-inner { grid-template-columns: 1fr; gap: 40px; }
-      .hero-visual { order: -1; }
-      .browser-mock { width: 100%; }
-      .nav-links { display: none; }
-      .stats-grid { grid-template-columns: 1fr 1fr; }
-      .cta-actions { flex-direction: column; align-items: center; }
-      .footer-main { flex-direction: column; }
-      .footer-copy { text-align: center; }
-      .tokushoho-grid { grid-template-columns: 1fr; gap: 0; }
-      .tokushoho-key { margin-top: 8px; }
-    }
-  </style>
+.hero-content {
+  position:relative; z-index:1;
+}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:100px;
+  padding:7px 16px;
+  margin-bottom:28px;
+  box-shadow:0 2px 12px rgba(26,35,64,.07);
+}
+.hero-badge-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--blue);
+  box-shadow:0 0 0 3px rgba(46,139,224,.2);
+}
+.hero-badge span {
+  font-family:'Inter',sans-serif;
+  font-size:11px; font-weight:600;
+  color:var(--blue); letter-spacing:.08em;
+}
+.hero-title {
+  font-size:clamp(44px, 8vw, 96px);
+  font-weight:900;
+  letter-spacing:-.035em;
+  line-height:1.1;
+  color:var(--navy);
+  margin-bottom:28px;
+}
+.hero-title .grad {
+  background:linear-gradient(120deg, var(--blue) 0%, var(--orange) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-desc {
+  font-size:16px; line-height:1.85;
+  color:var(--muted);
+  max-width:460px;
+  margin-bottom:44px;
+}
+.hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:13px 26px; border-radius:100px;
+  font-size:14px; font-weight:700;
+  letter-spacing:.01em;
+  transition:all .22s; cursor:pointer; white-space:nowrap;
+}
+.btn-primary {
+  background:var(--blue); color:var(--white);
+  box-shadow:0 6px 20px rgba(46,139,224,.30);
+}
+.btn-primary:hover { background:var(--blue2); transform:translateY(-2px); box-shadow:0 10px 28px rgba(46,139,224,.38); }
+.btn-secondary {
+  background:var(--white); color:var(--navy);
+  border:1.5px solid var(--border);
+  box-shadow:var(--shadow);
+}
+.btn-secondary:hover { border-color:var(--blue); color:var(--blue); transform:translateY(-2px); }
+
+/* scroll hint */
+.hero-scroll {
+  position:absolute; bottom:32px; left:50%;
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  opacity:.4;
+}
+.hero-scroll-line {
+  width:1px; height:44px;
+  background:linear-gradient(var(--navy), transparent);
+  animation:scrollPulse 2.2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { transform:scaleY(1) translateY(0); opacity:.4; transform-origin:top; }
+  50%      { transform:scaleY(.5) translateY(0); opacity:.15; }
+}
+.hero-scroll span {
+  font-family:'Inter',sans-serif;
+  font-size:9px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--navy);
+}
+
+/* ════════════════════════════════════════ */
+/*  PRODUCTS                                */
+/* ════════════════════════════════════════ */
+.products-section {
+  background:var(--white);
+  padding:110px 0;
+}
+.products-head {
+  display:flex; justify-content:space-between;
+  align-items:flex-end; gap:24px; flex-wrap:wrap;
+  margin-bottom:64px;
+}
+
+.prod-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+@media(max-width:700px) { .prod-grid { grid-template-columns:1fr; } }
+
+.prod-card {
+  border-radius:24px;
+  overflow:hidden;
+  position:relative;
+  transition:transform .3s, box-shadow .3s;
+  border:1px solid var(--border);
+}
+.prod-card:hover { transform:translateY(-6px); box-shadow:var(--shadow2); }
+
+.prod-card-body { padding:40px 36px 36px; }
+
+/* 決算レーダー */
+.prod-kessan {
+  background:linear-gradient(150deg, #EBF4FF 0%, #F0F7FF 100%);
+}
+.prod-kessan .prod-accent { color:var(--blue); }
+
+/* トレログ */
+.prod-tore {
+  background:linear-gradient(150deg, #FFF4E0 0%, #FFF8EE 100%);
+}
+.prod-tore .prod-accent { color:var(--orange); }
+
+.prod-tag {
+  display:inline-flex; align-items:center; gap:7px;
+  padding:5px 14px; border-radius:100px;
+  font-family:'Inter',sans-serif;
+  font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  margin-bottom:24px;
+}
+.prod-tag-blue { background:rgba(46,139,224,.12); color:var(--blue); border:1px solid rgba(46,139,224,.2); }
+.prod-tag-orange { background:rgba(245,160,32,.14); color:#D4840A; border:1px solid rgba(245,160,32,.25); }
+.prod-tag .dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; animation:livePulse 2s infinite; }
+.prod-tag-blue .dot { background:var(--blue); }
+.prod-tag-orange .dot { background:var(--orange); }
+@keyframes livePulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.prod-name {
+  font-size:clamp(24px,3vw,34px); font-weight:900;
+  letter-spacing:-.025em; line-height:1.15;
+  color:var(--navy); margin-bottom:14px;
+}
+.prod-desc {
+  font-size:14px; line-height:1.85; color:var(--muted);
+  margin-bottom:24px;
+}
+.prod-chips { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:28px; }
+.prod-chip {
+  font-family:'Inter',sans-serif;
+  font-size:11px; font-weight:600; padding:4px 12px; border-radius:100px;
+  background:rgba(26,35,64,.06); color:var(--ink);
+  border:1px solid rgba(26,35,64,.09);
+}
+.prod-link {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Inter',sans-serif;
+  font-size:13px; font-weight:700;
+  transition:gap .2s;
+}
+.prod-link:hover { gap:13px; }
+
+/* visual decoration */
+.prod-deco {
+  position:absolute; right:-24px; bottom:-24px;
+  width:160px; height:160px;
+  border-radius:50%;
+  pointer-events:none; opacity:.35;
+}
+.prod-kessan .prod-deco { background:radial-gradient(circle, rgba(46,139,224,.3), transparent 70%); }
+.prod-tore .prod-deco { background:radial-gradient(circle, rgba(245,160,32,.3), transparent 70%); }
+
+.prod-icon {
+  position:absolute; right:28px; top:28px;
+  font-size:40px; opacity:.15;
+  pointer-events:none;
+}
+
+/* Coming soon */
+.prod-soon {
+  border-radius:24px;
+  border:2px dashed rgba(26,35,64,.12);
+  background:var(--paper);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:10px; padding:44px;
+  text-align:center;
+  grid-column:1/-1;
+  transition:border-color .25s, background .25s;
+}
+.prod-soon:hover { border-color:var(--blue); background:var(--blue-lt); }
+.prod-soon-icon { font-size:30px; }
+.prod-soon-title { font-size:16px; font-weight:700; color:var(--navy); }
+.prod-soon-sub { font-size:13px; color:var(--muted); }
+
+/* ════════════════════════════════════════ */
+/*  SERVICE                                 */
+/* ════════════════════════════════════════ */
+.service-section { background:var(--cream); padding:110px 0; }
+
+.service-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:72px; align-items:start;
+  margin-top:64px;
+}
+@media(max-width:768px) { .service-grid { grid-template-columns:1fr; gap:48px; } }
+
+/* Flow */
+.flow { margin-top:36px; display:flex; flex-direction:column; }
+.flow-item {
+  display:flex; gap:18px;
+  padding-bottom:32px; position:relative;
+}
+.flow-item:not(:last-child)::before {
+  content:''; position:absolute;
+  left:19px; top:42px; bottom:0; width:1px;
+  background:linear-gradient(var(--blue), transparent);
+  opacity:.2;
+}
+.flow-num {
+  width:40px; height:40px; flex-shrink:0; border-radius:50%;
+  background:var(--blue); color:var(--white);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Inter',sans-serif; font-size:14px; font-weight:700;
+}
+.flow-body { padding-top:7px; }
+.flow-title { font-size:15px; font-weight:700; margin-bottom:4px; color:var(--navy); }
+.flow-desc { font-size:13.5px; color:var(--muted); line-height:1.75; }
+
+/* Price cards */
+.price-cards { display:flex; flex-direction:column; gap:16px; }
+.price-card {
+  background:var(--white); border-radius:20px;
+  padding:32px 34px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  transition:transform .25s, box-shadow .25s;
+}
+.price-card:hover { transform:translateY(-4px); box-shadow:var(--shadow2); }
+.pc-label {
+  font-family:'Inter',sans-serif;
+  font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:6px;
+}
+.pc-name { font-size:18px; font-weight:800; color:var(--navy); margin-bottom:10px; }
+.pc-amount {
+  font-family:'Inter',sans-serif;
+  font-size:clamp(26px,3.5vw,36px); font-weight:800;
+  color:var(--navy); letter-spacing:-.03em; line-height:1;
+  margin-bottom:4px;
+}
+.pc-note { font-size:12px; color:var(--muted); margin-bottom:20px; }
+.pc-feats { display:flex; flex-direction:column; gap:9px; margin-bottom:24px; }
+.pc-feat {
+  display:flex; gap:10px; align-items:flex-start;
+  font-size:13.5px; color:var(--ink); line-height:1.6;
+}
+.pc-feat::before {
+  content:'';
+  width:18px; height:18px; flex-shrink:0; margin-top:1px;
+  background:url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='9' cy='9' r='8.5' fill='%23EBF4FF' stroke='%232E8BE0' stroke-opacity='.3'/%3E%3Cpath d='M5.5 9L7.8 11.5L12.5 6.5' stroke='%232E8BE0' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;
+}
+.btn-full { width:100%; justify-content:center; }
+.btn-blue { background:var(--blue); color:var(--white); box-shadow:0 4px 16px rgba(46,139,224,.25); }
+.btn-blue:hover { background:var(--blue2); transform:translateY(-2px); }
+.btn-outline { background:transparent; color:var(--navy); border:1.5px solid var(--border); }
+.btn-outline:hover { border-color:var(--blue); color:var(--blue); transform:translateY(-2px); }
+
+/* ════════════════════════════════════════ */
+/*  ABOUT                                   */
+/* ════════════════════════════════════════ */
+.about-section { background:var(--white); padding:110px 0; }
+.about-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:72px; align-items:center; margin-top:64px;
+}
+@media(max-width:768px) { .about-grid { grid-template-columns:1fr; gap:40px; } }
+
+.stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.stat-box {
+  background:var(--paper);
+  border:1px solid var(--border);
+  border-radius:18px; padding:28px 24px;
+  transition:transform .2s, box-shadow .2s;
+}
+.stat-box:hover { transform:translateY(-3px); box-shadow:var(--shadow); }
+.stat-box:nth-child(1) { background:var(--blue-lt); border-color:rgba(46,139,224,.18); }
+.stat-box:nth-child(2) { background:var(--org-lt); border-color:rgba(245,160,32,.2); }
+.stat-num {
+  font-family:'Inter',sans-serif;
+  font-size:40px; font-weight:800;
+  letter-spacing:-.04em; line-height:1; margin-bottom:6px;
+}
+.stat-box:nth-child(1) .stat-num { color:var(--blue); }
+.stat-box:nth-child(2) .stat-num { color:var(--orange); }
+.stat-box:nth-child(3) .stat-num { color:var(--blue); font-size:26px; }
+.stat-box:nth-child(4) .stat-num { color:var(--orange); font-size:22px; }
+.stat-lbl { font-size:12px; color:var(--muted); font-weight:500; }
+
+.about-text .sec-sub { margin-top:16px; margin-bottom:16px; }
+.skills { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.skill-tag {
+  background:var(--cream); border:1px solid var(--border);
+  border-radius:8px; padding:7px 14px;
+  font-size:12px; font-weight:600; color:var(--ink);
+  transition:all .2s;
+}
+.skill-tag:hover { background:var(--blue); color:var(--white); border-color:var(--blue); }
+
+/* ════════════════════════════════════════ */
+/*  CONTACT                                 */
+/* ════════════════════════════════════════ */
+.contact-section {
+  background:linear-gradient(150deg, #EBF4FF 0%, #F2F0EB 50%, #FFF4E0 100%);
+  padding:110px 0;
+  position:relative; overflow:hidden;
+}
+.contact-section::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image:radial-gradient(circle, rgba(26,35,64,.05) 1px, transparent 1px);
+  background-size:28px 28px;
+  pointer-events:none;
+}
+.contact-inner { position:relative; z-index:1; }
+.contact-title {
+  font-size:clamp(30px,5vw,60px); font-weight:900;
+  letter-spacing:-.03em; line-height:1.18;
+  color:var(--navy); margin-bottom:20px; margin-top:16px;
+}
+.contact-desc {
+  font-size:16px; line-height:1.85; color:var(--muted);
+  max-width:420px; margin-bottom:44px;
+}
+.contact-btns { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-orange {
+  background:var(--orange); color:var(--white);
+  box-shadow:0 6px 20px rgba(245,160,32,.30);
+}
+.btn-orange:hover { background:#E8920A; transform:translateY(-2px); box-shadow:0 10px 28px rgba(245,160,32,.38); }
+.contact-card {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--white); border:1px solid var(--border);
+  border-radius:100px; padding:13px 26px;
+  font-size:14px; font-weight:700; color:var(--navy);
+  box-shadow:var(--shadow);
+  transition:all .22s;
+}
+.contact-card:hover { border-color:var(--blue); color:var(--blue); transform:translateY(-2px); box-shadow:var(--shadow2); }
+
+/* ════════════════════════════════════════ */
+/*  FOOTER                                  */
+/* ════════════════════════════════════════ */
+footer {
+  background:var(--navy); color:rgba(255,255,255,.35);
+  padding:56px 0 40px;
+}
+.footer-top {
+  display:flex; align-items:center;
+  justify-content:space-between; flex-wrap:wrap; gap:20px;
+  padding-bottom:36px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  margin-bottom:36px;
+}
+.footer-logo img { height:44px; object-fit:contain; border-radius:6px; }
+.footer-links { display:flex; gap:28px; font-size:13px; }
+.footer-links a { transition:color .2s; }
+.footer-links a:hover { color:rgba(255,255,255,.8); }
+
+/* 特商法 */
+.tok { font-size:11.5px; line-height:2.1; }
+.tok-ttl {
+  font-family:'Inter',sans-serif;
+  font-size:9px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(255,255,255,.22); margin-bottom:14px;
+  display:flex; align-items:center; gap:8px;
+}
+.tok-ttl::before { content:''; width:14px; height:1px; background:rgba(255,255,255,.22); }
+.tok-grid {
+  display:grid; grid-template-columns:max-content 1fr;
+  gap:0 24px; max-width:640px;
+}
+.tok-key { color:rgba(255,255,255,.25); white-space:nowrap; }
+.tok-val { color:rgba(255,255,255,.45); }
+@media(max-width:580px) {
+  .tok-grid { grid-template-columns:1fr; }
+  .tok-key { margin-top:10px; }
+}
+.footer-copy {
+  margin-top:32px; font-size:11px;
+  text-align:right; color:rgba(255,255,255,.18);
+}
+@media(max-width:580px) { .footer-copy { text-align:center; } }
+</style>
 </head>
 <body>
 
-<!-- ===== ナビゲーション ===== -->
-<nav>
-  <div class="container">
-    <div class="nav-inner">
-      <div class="logo">かたち<span>スタジオ</span></div>
-      <div class="nav-links">
-        <a href="#apps">サービス</a>
-        <a href="#service">開発依頼</a>
-        <a href="#about">について</a>
-        <a href="#contact">お問い合わせ</a>
-      </div>
-      <a href="#contact" class="btn btn-primary nav-cta">無料相談する</a>
+<!-- ══ NAV ════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="nav-logo">
+      <img src="logo.jpg" alt="かたちスタジオ">
+    </a>
+    <div class="nav-links">
+      <a href="#products">サービス</a>
+      <a href="#service">開発依頼</a>
+      <a href="#about">About</a>
+      <a href="#contact">お問い合わせ</a>
     </div>
+    <a href="#contact" class="nav-cta btn">無料相談する</a>
   </div>
 </nav>
 
-<!-- ===== ヒーロー ===== -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-inner">
-      <div class="hero-content">
-        <span class="hero-eyebrow">App Development Studio</span>
-        <h1 class="hero-title">使いやすいアプリを、<br><em>いっしょに。</em></h1>
-        <p class="hero-desc">
-          かたちスタジオは、アイデアを実際に動くアプリへ変えるスタジオです。<br>
-          自社アプリの開発・公開のほか、個人・法人からの開発依頼も受け付けています。
-        </p>
-        <div class="hero-actions">
-          <a href="#service" class="btn btn-primary">開発を依頼する</a>
-          <a href="#apps" class="btn btn-outline">アプリを見る</a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="browser-mock">
-          <div class="browser-bar">
-            <div class="browser-dot" style="background:#FF5F57;"></div>
-            <div class="browser-dot" style="background:#FFBD2E;"></div>
-            <div class="browser-dot" style="background:#28C840;"></div>
-            <div class="browser-url">kessan-radar.jp</div>
-          </div>
-          <div class="browser-screen">
-            <div class="browser-screen-icon">📡</div>
-            <div class="browser-screen-label">決算レーダー</div>
-            <div class="browser-screen-sub">企業の決算発表をいち早くキャッチ</div>
-          </div>
-        </div>
-      </div>
+<!-- ══ HERO ════════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="geo geo-triangle"></div>
+  <div class="geo geo-square"></div>
+  <div class="geo geo-circle"></div>
+  <div class="wrap hero-content">
+    <div class="hero-badge reveal">
+      <span class="hero-badge-dot"></span>
+      <span>App Development Studio</span>
     </div>
+    <h1 class="hero-title reveal d1">
+      アイデアに、<br>
+      <span class="grad">確かなカタチを。</span>
+    </h1>
+    <p class="hero-desc reveal d2">
+      かたちスタジオは、便利で使いやすいWebアプリ・モバイルアプリを開発するスタジオです。自社プロダクトの開発・公開のほか、個人・法人からの依頼も受け付けています。
+    </p>
+    <div class="hero-btns reveal d3">
+      <a href="#products" class="btn btn-primary">プロダクトを見る</a>
+      <a href="#service" class="btn btn-secondary">開発を依頼する</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>scroll</span>
   </div>
 </section>
 
-<!-- ===== アプリ一覧 ===== -->
-<section id="apps" class="section">
-  <div class="container">
-    <div class="apps-header">
-      <p class="section-label">Our Services</p>
-      <h2 class="section-title">自社開発サービス</h2>
-      <p class="section-sub">かたちスタジオが開発・公開しているWebサービスをご紹介します。</p>
+<!-- ══ PRODUCTS ════════════════════════════ -->
+<section class="products-section" id="products">
+  <div class="wrap">
+    <div class="products-head">
+      <div>
+        <p class="label reveal">Our Products</p>
+        <h2 class="sec-title reveal d1">自社開発プロダクト</h2>
+      </div>
+      <p class="sec-sub reveal d2">かたちスタジオが開発・公開しているサービスです。</p>
     </div>
-    <div class="apps-grid">
+
+    <div class="prod-grid">
 
       <!-- 決算レーダー -->
-      <div class="app-card">
-        <div class="app-icon" style="background: linear-gradient(135deg, #4F6EF7, #7C3AED);">📡</div>
-        <div class="app-name">決算レーダー</div>
-        <p class="app-desc">企業の決算発表を瞬時に捉え、投資判断を加速させるWebサービス。見逃しがちな発表タイミングをいち早くキャッチし、チャンスを逃しません。</p>
-        <div class="app-tags">
-          <span class="tag">Web</span>
-          <span class="tag">投資・株式</span>
-          <span class="tag">決算情報</span>
+      <div class="prod-card prod-kessan reveal d1">
+        <div class="prod-icon">📡</div>
+        <div class="prod-deco"></div>
+        <div class="prod-card-body">
+          <div class="prod-tag prod-tag-blue">
+            <span class="dot"></span>公開中
+          </div>
+          <div class="prod-name">決算レーダー 📡</div>
+          <p class="prod-desc">
+            決算PDFを1枚ずつ開く作業に終止符。「好決算」を瞬時に炙り出し、投資家のタイパを最大化する決算分析スクリーニングツール。
+          </p>
+          <div class="prod-chips">
+            <span class="prod-chip">決算分析</span>
+            <span class="prod-chip">スクリーニング</span>
+            <span class="prod-chip">株式投資</span>
+            <span class="prod-chip">Web</span>
+          </div>
+          <a href="https://www.kessan-radar.jp/" target="_blank" rel="noopener" class="prod-link prod-accent">
+            kessan-radar.jp
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </a>
         </div>
-        <a href="https://www.kessan-radar.jp/" target="_blank" rel="noopener" class="app-link">サービスを見る</a>
       </div>
 
       <!-- トレログ -->
-      <div class="app-card">
-        <div class="app-icon" style="background: linear-gradient(135deg, #F5A623, #E8440A);">📔</div>
-        <div class="app-name">トレログ</div>
-        <p class="app-desc">トレードにおけるルール管理と日記によるFOMO対策Webサービス。自分のルールを記録・振り返ることで、感情に流されない安定したトレードを支援します。</p>
-        <div class="app-tags">
-          <span class="tag">Web</span>
-          <span class="tag">トレード日記</span>
-          <span class="tag">ルール管理</span>
+      <div class="prod-card prod-tore reveal d2">
+        <div class="prod-icon">📔</div>
+        <div class="prod-deco"></div>
+        <div class="prod-card-body">
+          <div class="prod-tag prod-tag-orange">
+            <span class="dot"></span>公開中
+          </div>
+          <div class="prod-name">トレログ 📔</div>
+          <p class="prod-desc">
+            トレードにおけるルール管理と日記によるFOMO対策Webサービス。感情に流されない安定したトレードを支援します。
+          </p>
+          <div class="prod-chips">
+            <span class="prod-chip">トレード日記</span>
+            <span class="prod-chip">ルール管理</span>
+            <span class="prod-chip">Web</span>
+          </div>
+          <a href="https://steady-mind.vercel.app/" target="_blank" rel="noopener" class="prod-link prod-accent">
+            steady-mind.vercel.app
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </a>
         </div>
-        <a href="https://steady-mind.vercel.app/" target="_blank" rel="noopener" class="app-link">サービスを見る</a>
+      </div>
+
+      <!-- Coming soon -->
+      <div class="prod-soon reveal d3">
+        <span class="prod-soon-icon">🚀</span>
+        <span class="prod-soon-title">次のプロダクトを開発中…</span>
+        <span class="prod-soon-sub">モバイルアプリなど、新しいプロダクトが続々登場予定です。</span>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ===== サービス・価格 ===== -->
-<section id="service" class="section">
-  <div class="container">
-    <div class="service-inner">
+<!-- ══ SERVICE ══════════════════════════════ -->
+<section class="service-section" id="service">
+  <div class="wrap">
+    <p class="label reveal">Commission</p>
+    <h2 class="sec-title reveal d1">アプリ開発、<br>受け付けています。</h2>
+    <div class="service-grid">
       <div>
-        <p class="section-label">Commission</p>
-        <h2 class="section-title">アプリ開発、<br>受け付けています。</h2>
-        <p class="section-sub">アイデアはあるけど技術がない、既存アプリを改善したい、まず相談したい。どんな段階からでも気軽にご連絡ください。</p>
-        <div class="flow-list" style="margin-top: 40px;">
+        <p class="sec-sub reveal">アイデアはあるけど技術がない、既存アプリを改善したい、まず相談したい。どんな段階からでも気軽にご連絡ください。</p>
+        <div class="flow reveal d1">
           <div class="flow-item">
             <div class="flow-num">1</div>
             <div class="flow-body">
@@ -423,133 +724,145 @@
           </div>
         </div>
       </div>
-      <div class="price-cards">
-
-        <!-- 個人向けアプリ開発 -->
+      <div class="price-cards reveal d2">
         <div class="price-card">
-          <div class="price-card-label">Service 01</div>
-          <div class="price-card-name">個人向けアプリ開発</div>
-          <div class="price-range">¥30,000〜</div>
-          <div class="price-note">内容により要相談</div>
-          <div class="price-features">
-            <div class="price-feature">Web アプリ・サービス開発に対応</div>
-            <div class="price-feature">要件定義・画面設計込み</div>
-            <div class="price-feature">個人・副業・スタートアップ歓迎</div>
-            <div class="price-feature">秘密保持契約（NDA）対応可</div>
+          <div class="pc-label">Service 01</div>
+          <div class="pc-name">個人向けアプリ開発</div>
+          <div class="pc-amount">¥30,000 〜</div>
+          <div class="pc-note">内容により要相談</div>
+          <div class="pc-feats">
+            <div class="pc-feat">Web アプリ・サービス開発に対応</div>
+            <div class="pc-feat">要件定義・画面設計込み</div>
+            <div class="pc-feat">個人・副業・スタートアップ歓迎</div>
+            <div class="pc-feat">秘密保持契約（NDA）対応可</div>
           </div>
-          <a href="#contact" class="btn btn-primary" style="width: 100%; justify-content: center;">無料で相談する →</a>
+          <a href="#contact" class="btn btn-blue btn-full">無料で相談する →</a>
         </div>
-
-        <!-- 保守・運用 -->
         <div class="price-card">
-          <div class="price-card-label">Service 02</div>
-          <div class="price-card-name">保守・運用</div>
-          <div class="price-range" style="font-size: clamp(18px, 2.5vw, 24px); padding-top: 4px;">内容に合わせてご相談</div>
-          <div class="price-note">既存アプリの改修・機能追加・運用代行など</div>
-          <div class="price-features">
-            <div class="price-feature">バグ修正・アップデート対応</div>
-            <div class="price-feature">機能追加・UI改善</div>
-            <div class="price-feature">サーバー・インフラ管理</div>
+          <div class="pc-label">Service 02</div>
+          <div class="pc-name">保守・運用</div>
+          <div class="pc-amount" style="font-size:20px;padding-top:4px;">内容に合わせてご相談</div>
+          <div class="pc-note">既存アプリの改修・機能追加・運用代行など</div>
+          <div class="pc-feats">
+            <div class="pc-feat">バグ修正・アップデート対応</div>
+            <div class="pc-feat">機能追加・UI改善</div>
+            <div class="pc-feat">サーバー・インフラ管理</div>
           </div>
-          <a href="#contact" class="btn btn-outline" style="width: 100%; justify-content: center;">内容を相談する →</a>
+          <a href="#contact" class="btn btn-outline btn-full">内容を相談する →</a>
         </div>
-
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== について ===== -->
-<section id="about" class="section">
-  <div class="container">
-    <div class="about-inner">
-      <div class="stats-grid">
-        <div class="stat-card">
+<!-- ══ ABOUT ════════════════════════════════ -->
+<section class="about-section" id="about">
+  <div class="wrap">
+    <p class="label reveal">About</p>
+    <h2 class="sec-title reveal d1">かたちスタジオとは</h2>
+    <div class="about-grid">
+      <div class="stat-grid reveal d1">
+        <div class="stat-box">
           <div class="stat-num">2+</div>
-          <div class="stat-label">公開アプリ数</div>
+          <div class="stat-lbl">公開プロダクト</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-box">
           <div class="stat-num">100%</div>
-          <div class="stat-label">全力対応</div>
+          <div class="stat-lbl">全力対応</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">Web</div>
+          <div class="stat-lbl">アプリ対応</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">Mobile</div>
+          <div class="stat-lbl">近日公開予定</div>
         </div>
       </div>
-      <div class="about-text">
-        <p class="section-label">About</p>
-        <h2 class="section-title">かたちスタジオとは</h2>
-        <p class="section-sub">
-          「かたちにする」をテーマに活動する個人開発スタジオです。<br><br>
-          使いやすさとデザインにこだわったアプリを開発・公開するほか、個人・中小企業・スタートアップからの開発依頼を受け付けています。
-        </p>
+      <div class="about-text reveal d2">
+        <p class="sec-sub">「かたちにする」をテーマに活動する個人開発スタジオです。</p>
+        <p class="sec-sub">使いやすさとデザインにこだわったアプリを開発・公開するほか、個人・中小企業・スタートアップからの開発依頼を受け付けています。</p>
         <div class="skills">
-          <span class="skill-chip">React / Next.js</span>
-          <span class="skill-chip">TypeScript</span>
-          <span class="skill-chip">Node.js</span>
-          <span class="skill-chip">Firebase</span>
-          <span class="skill-chip">Supabase</span>
-          <span class="skill-chip">Vercel</span>
-          <span class="skill-chip">UI / UX Design</span>
+          <span class="skill-tag">React / Next.js</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">Firebase</span>
+          <span class="skill-tag">Supabase</span>
+          <span class="skill-tag">Vercel</span>
+          <span class="skill-tag">UI / UX Design</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== CTA / お問い合わせ ===== -->
-<section id="contact" class="cta-section">
-  <div class="container">
-    <p class="section-label">Contact</p>
-    <h2 class="section-title">まずは気軽に話しかけてください。</h2>
-    <p class="section-sub">アプリ開発の相談、機能についての質問、コラボのお誘いなど、何でもどうぞ。</p>
-    <div class="cta-actions">
-      <a href="/cdn-cgi/l/email-protection#f69d978297959e9fd8858283929f99d89990909f959f979ab6919b979f9ad895999b" class="btn btn-white">
+<!-- ══ CONTACT ══════════════════════════════ -->
+<section class="contact-section" id="contact">
+  <div class="wrap contact-inner">
+    <p class="label reveal">Contact</p>
+    <h2 class="contact-title reveal d1">まずは気軽に<br>話しかけてください。</h2>
+    <p class="contact-desc reveal d2">アプリ開発の相談、機能についての質問、コラボのお誘いなど、何でもどうぞ。</p>
+    <div class="contact-btns reveal d3">
+      <a href="mailto:katachi.studio.official@gmail.com" class="btn btn-primary">
         ✉️ メールで問い合わせる
       </a>
-      <a href="https://x.com/katachi_app" target="_blank" rel="noopener" class="btn btn-outline" style="color: #fff; border-color: rgba(255,255,255,.3);">
-        𝕏 X（Twitter）でDMする
+      <a href="https://x.com/katachi_app" target="_blank" rel="noopener" class="contact-card">
+        <span style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;">𝕏</span>
+        X（Twitter）でDMする
       </a>
     </div>
   </div>
 </section>
 
-<!-- ===== フッター ===== -->
+<!-- ══ FOOTER ═══════════════════════════════ -->
 <footer>
-  <div class="container">
-    <div class="footer-main">
-      <div class="footer-logo">かたちスタジオ</div>
+  <div class="wrap">
+    <div class="footer-top">
+      <a href="#top" class="footer-logo">
+        <img src="logo.jpg" alt="かたちスタジオ">
+      </a>
       <div class="footer-links">
-        <a href="#apps">サービス</a>
+        <a href="#products">サービス</a>
         <a href="#service">開発依頼</a>
-        <a href="#about">について</a>
+        <a href="#about">About</a>
         <a href="#contact">お問い合わせ</a>
       </div>
     </div>
-
-    <!-- 特定商取引法に基づく表記 -->
-    <div class="tokushoho">
-      <div class="tokushoho-title">特定商取引法に基づく表記</div>
-      <div class="tokushoho-grid">
-        <span class="tokushoho-key">事業者名</span>
-        <span class="tokushoho-val">西浦孝子</span>
-        <span class="tokushoho-key">所在地</span>
-        <span class="tokushoho-val">〒150-0021 東京都渋谷区恵比寿西2丁目4番8号 ウィンド恵比寿ビル8F</span>
-        <span class="tokushoho-key">電話番号</span>
-        <span class="tokushoho-val">070-2361-4718</span>
-        <span class="tokushoho-key">メールアドレス</span>
-        <span class="tokushoho-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="442f253025272c2d6a373031202d2b6a2b22222d272d2528042329252d286a272b29">[email&#160;protected]</a></span>
-        <span class="tokushoho-key">販売価格</span>
-        <span class="tokushoho-val">各サービスページをご参照ください</span>
-        <span class="tokushoho-key">お支払い方法</span>
-        <span class="tokushoho-val">銀行振込（詳細はお問い合わせください）</span>
-        <span class="tokushoho-key">サービス提供時期</span>
-        <span class="tokushoho-val">ご契約後、別途ご案内するスケジュールに準じます</span>
-        <span class="tokushoho-key">返品・キャンセル</span>
-        <span class="tokushoho-val">成果物納品前のキャンセルは、着手金のご返金はいたしかねます</span>
+    <div class="tok">
+      <div class="tok-ttl">特定商取引法に基づく表記</div>
+      <div class="tok-grid">
+        <span class="tok-key">事業者名</span><span class="tok-val">西浦孝子</span>
+        <span class="tok-key">所在地</span><span class="tok-val">〒150-0021 東京都渋谷区恵比寿西2丁目4番8号 ウィンド恵比寿ビル8F</span>
+        <span class="tok-key">電話番号</span><span class="tok-val">070-2361-4718</span>
+        <span class="tok-key">メールアドレス</span><span class="tok-val">katachi.studio.official@gmail.com</span>
+        <span class="tok-key">販売価格</span><span class="tok-val">各サービスページをご参照ください</span>
+        <span class="tok-key">お支払い方法</span><span class="tok-val">銀行振込（詳細はお問い合わせください）</span>
+        <span class="tok-key">サービス提供時期</span><span class="tok-val">ご契約後、別途ご案内するスケジュールに準じます</span>
+        <span class="tok-key">返品・キャンセル</span><span class="tok-val">成果物納品前のキャンセルは、着手金のご返金はいたしかねます</span>
       </div>
     </div>
-
     <div class="footer-copy">© 2026 かたちスタジオ. All rights reserved.</div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+<script>
+/* Nav scroll */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive:true });
+
+/* Reveal on scroll */
+const els = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold:0.1, rootMargin:'0px 0px -36px 0px' });
+els.forEach(el => obs.observe(el));
+
+/* Immediate hero reveal */
+setTimeout(() => {
+  document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('in'));
+}, 100);
+</script>
+</body>
 </html>
