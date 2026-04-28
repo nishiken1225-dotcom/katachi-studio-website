@@ -540,24 +540,43 @@ footer {
 .footer-links a { transition:color .2s; }
 .footer-links a:hover { color:rgba(255,255,255,.8); }
 
-/* 特商法 */
-.tok { font-size:11.5px; line-height:2.1; }
-.tok-ttl {
-  font-family:'Inter',sans-serif;
-  font-size:9px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
-  color:rgba(255,255,255,.22); margin-bottom:14px;
-  display:flex; align-items:center; gap:8px;
+/* モーダル */
+.modal-overlay {
+  display:none; position:fixed; inset:0; z-index:1000;
+  background:rgba(0,0,0,.55); backdrop-filter:blur(4px);
+  align-items:center; justify-content:center; padding:24px;
 }
-.tok-ttl::before { content:''; width:14px; height:1px; background:rgba(255,255,255,.22); }
+.modal-overlay.is-open { display:flex; }
+.modal {
+  background:var(--white); border-radius:20px;
+  padding:44px; max-width:640px; width:100%;
+  max-height:90vh; overflow-y:auto;
+  box-shadow:0 32px 80px rgba(26,35,64,.22);
+  position:relative;
+}
+.modal-title {
+  font-size:18px; font-weight:800; color:var(--navy);
+  margin-bottom:28px; padding-right:36px;
+  letter-spacing:-.02em;
+}
+.modal-close {
+  position:absolute; top:18px; right:18px;
+  width:34px; height:34px; border-radius:50%;
+  border:none; background:var(--cream); cursor:pointer;
+  font-size:15px; display:flex; align-items:center; justify-content:center;
+  color:var(--muted); transition:background .15s, color .15s;
+}
+.modal-close:hover { background:rgba(26,35,64,.1); color:var(--navy); }
 .tok-grid {
   display:grid; grid-template-columns:max-content 1fr;
-  gap:0 24px; max-width:640px;
+  gap:4px 24px; font-size:14px; line-height:1.85;
 }
-.tok-key { color:rgba(255,255,255,.25); white-space:nowrap; }
-.tok-val { color:rgba(255,255,255,.45); }
+.tok-key { color:var(--muted); white-space:nowrap; font-weight:600; }
+.tok-val { color:var(--ink); }
 @media(max-width:580px) {
-  .tok-grid { grid-template-columns:1fr; }
-  .tok-key { margin-top:10px; }
+  .modal { padding:32px 20px; }
+  .tok-grid { grid-template-columns:1fr; gap:0; }
+  .tok-key { margin-top:10px; font-size:12px; }
 }
 .footer-copy {
   margin-top:32px; font-size:11px;
@@ -826,24 +845,30 @@ footer {
         <a href="#service">開発依頼</a>
         <a href="#about">About</a>
         <a href="#contact">お問い合わせ</a>
-      </div>
-    </div>
-    <div class="tok">
-      <div class="tok-ttl">特定商取引法に基づく表記</div>
-      <div class="tok-grid">
-        <span class="tok-key">事業者名</span><span class="tok-val">西浦孝子</span>
-        <span class="tok-key">所在地</span><span class="tok-val">〒150-0021 東京都渋谷区恵比寿西2丁目4番8号 ウィンド恵比寿ビル8F</span>
-        <span class="tok-key">電話番号</span><span class="tok-val">070-2361-4718</span>
-        <span class="tok-key">メールアドレス</span><span class="tok-val">katachi.studio.official@gmail.com</span>
-        <span class="tok-key">販売価格</span><span class="tok-val">各サービスページをご参照ください</span>
-        <span class="tok-key">お支払い方法</span><span class="tok-val">銀行振込（詳細はお問い合わせください）</span>
-        <span class="tok-key">サービス提供時期</span><span class="tok-val">ご契約後、別途ご案内するスケジュールに準じます</span>
-        <span class="tok-key">返品・キャンセル</span><span class="tok-val">成果物納品前のキャンセルは、着手金のご返金はいたしかねます</span>
+        <a href="#" id="tokushoho-link">特定商取引法に基づく表記</a>
       </div>
     </div>
     <div class="footer-copy">© 2026 かたちスタジオ. All rights reserved.</div>
   </div>
 </footer>
+
+<!-- ══ 特定商取引法モーダル ═══════════════════ -->
+<div class="modal-overlay" id="tokushoho-modal" role="dialog" aria-modal="true" aria-labelledby="tokushoho-modal-title">
+  <div class="modal">
+    <button class="modal-close" id="tokushoho-close" aria-label="閉じる">✕</button>
+    <div class="modal-title" id="tokushoho-modal-title">特定商取引法に基づく表記</div>
+    <div class="tok-grid">
+      <span class="tok-key">事業者名</span><span class="tok-val">西浦孝子</span>
+      <span class="tok-key">所在地</span><span class="tok-val">〒150-0021 東京都渋谷区恵比寿西2丁目4番8号 ウィンド恵比寿ビル8F</span>
+      <span class="tok-key">電話番号</span><span class="tok-val">070-2361-4718</span>
+      <span class="tok-key">メールアドレス</span><span class="tok-val">katachi.studio.official@gmail.com</span>
+      <span class="tok-key">販売価格</span><span class="tok-val">各サービスページをご参照ください</span>
+      <span class="tok-key">お支払い方法</span><span class="tok-val">銀行振込（詳細はお問い合わせください）</span>
+      <span class="tok-key">サービス提供時期</span><span class="tok-val">ご契約後、別途ご案内するスケジュールに準じます</span>
+      <span class="tok-key">返品・キャンセル</span><span class="tok-val">成果物納品前のキャンセルは、着手金のご返金はいたしかねます</span>
+    </div>
+  </div>
+</div>
 
 <script>
 /* Nav scroll */
@@ -863,6 +888,30 @@ els.forEach(el => obs.observe(el));
 setTimeout(() => {
   document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('in'));
 }, 100);
+
+/* 特定商取引法モーダル */
+(function () {
+  var overlay = document.getElementById('tokushoho-modal');
+  var link    = document.getElementById('tokushoho-link');
+  var close   = document.getElementById('tokushoho-close');
+  function openModal(e) {
+    e.preventDefault();
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    close.focus();
+  }
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+    link.focus();
+  }
+  link.addEventListener('click', openModal);
+  close.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
+  });
+})();
 </script>
 </body>
 </html>
