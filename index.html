@@ -332,6 +332,9 @@ img { display:block; max-width:100%; }
   transition:gap .2s;
 }
 .prod-link:hover { gap:13px; }
+.prod-link::after {
+  content:''; position:absolute; inset:0;
+}
 
 /* visual decoration */
 .prod-deco {
