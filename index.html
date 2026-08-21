@@ -295,6 +295,12 @@ img { display:block; max-width:100%; }
 }
 .prod-kessan .prod-accent { color:var(--blue); }
 
+/* らくらく注文 */
+.prod-bento {
+  background:linear-gradient(150deg, #E8F7F0 0%, #F1FBF6 100%);
+}
+.prod-bento .prod-accent { color:#0E7A5A; }
+
 /* トレログ */
 .prod-tore {
   background:linear-gradient(150deg, #FFF4E0 0%, #FFF8EE 100%);
@@ -310,9 +316,11 @@ img { display:block; max-width:100%; }
 }
 .prod-tag-blue { background:rgba(46,139,224,.12); color:var(--blue); border:1px solid rgba(46,139,224,.2); }
 .prod-tag-orange { background:rgba(245,160,32,.14); color:#D4840A; border:1px solid rgba(245,160,32,.25); }
+.prod-tag-green { background:rgba(16,144,106,.12); color:#0E7A5A; border:1px solid rgba(16,144,106,.22); }
 .prod-tag .dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; animation:livePulse 2s infinite; }
 .prod-tag-blue .dot { background:var(--blue); }
 .prod-tag-orange .dot { background:var(--orange); }
+.prod-tag-green .dot { background:#10906A; }
 @keyframes livePulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
 .prod-name {
@@ -351,6 +359,7 @@ img { display:block; max-width:100%; }
 }
 .prod-kessan .prod-deco { background:radial-gradient(circle, rgba(46,139,224,.3), transparent 70%); }
 .prod-tore .prod-deco { background:radial-gradient(circle, rgba(245,160,32,.3), transparent 70%); }
+.prod-bento .prod-deco { background:radial-gradient(circle, rgba(16,144,106,.3), transparent 70%); }
 
 .prod-icon {
   position:absolute; right:28px; top:28px;
@@ -367,7 +376,6 @@ img { display:block; max-width:100%; }
   align-items:center; justify-content:center;
   gap:10px; padding:44px;
   text-align:center;
-  grid-column:1/-1;
   transition:border-color .25s, background .25s;
 }
 .prod-soon:hover { border-color:var(--blue); background:var(--blue-lt); }
@@ -653,8 +661,29 @@ footer {
 
     <div class="prod-grid">
 
+      <!-- らくらく注文 -->
+      <div class="prod-card prod-bento reveal d1">
+        <div class="prod-icon">🍱</div>
+        <div class="prod-deco"></div>
+        <div class="prod-card-body">
+          <div class="prod-tag prod-tag-green">
+            <span class="dot"></span>公開中
+          </div>
+          <div class="prod-name">らくらく注文 🍱</div>
+          <p class="prod-desc">
+            弁当店の注文受けを、電話とFAXから解放。スマホで届いた注文が、その日の製造数と配達までひとつながりになる受注管理サービス。
+          </p>
+          <div class="prod-chips">
+            <span class="prod-chip">受注管理</span>
+            <span class="prod-chip">弁当店</span>
+            <span class="prod-chip">Web</span>
+          </div>
+          <a href="https://bento-master.vercel.app/lp" target="_blank" rel="noopener" class="prod-link" aria-label="らくらく注文を開く"></a>
+        </div>
+      </div>
+
       <!-- 決算レーダー -->
-      <div class="prod-card prod-kessan reveal d1">
+      <div class="prod-card prod-kessan reveal d2">
         <div class="prod-icon">📡</div>
         <div class="prod-deco"></div>
         <div class="prod-card-body">
@@ -676,7 +705,7 @@ footer {
       </div>
 
       <!-- トレログ -->
-      <div class="prod-card prod-tore reveal d2">
+      <div class="prod-card prod-tore reveal d3">
         <div class="prod-icon">📔</div>
         <div class="prod-deco"></div>
         <div class="prod-card-body">
@@ -697,7 +726,7 @@ footer {
       </div>
 
       <!-- Coming soon -->
-      <div class="prod-soon reveal d3">
+      <div class="prod-soon reveal d4">
         <span class="prod-soon-icon">🚀</span>
         <span class="prod-soon-title">次のプロダクトを開発中…</span>
         <span class="prod-soon-sub">モバイルアプリなど、新しいプロダクトが続々登場予定です。</span>
@@ -785,7 +814,7 @@ footer {
     <div class="about-grid">
       <div class="stat-grid reveal d1">
         <div class="stat-box">
-          <div class="stat-num">2+</div>
+          <div class="stat-num">3+</div>
           <div class="stat-lbl">公開プロダクト</div>
         </div>
         <div class="stat-box">
@@ -808,7 +837,7 @@ footer {
           <span class="skill-tag">React / Next.js</span>
           <span class="skill-tag">TypeScript</span>
           <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">Firebase</span>
+          <span class="skill-tag">Tailwind CSS</span>
           <span class="skill-tag">Supabase</span>
           <span class="skill-tag">Vercel</span>
           <span class="skill-tag">UI / UX Design</span>
