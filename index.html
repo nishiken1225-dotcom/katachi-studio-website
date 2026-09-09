@@ -301,12 +301,6 @@ img { display:block; max-width:100%; }
 }
 .prod-bento .prod-accent { color:#0E7A5A; }
 
-/* トレログ */
-.prod-tore {
-  background:linear-gradient(150deg, #FFF4E0 0%, #FFF8EE 100%);
-}
-.prod-tore .prod-accent { color:var(--orange); }
-
 .prod-tag {
   display:inline-flex; align-items:center; gap:7px;
   padding:5px 14px; border-radius:100px;
@@ -358,7 +352,6 @@ img { display:block; max-width:100%; }
   pointer-events:none; opacity:.35;
 }
 .prod-kessan .prod-deco { background:radial-gradient(circle, rgba(46,139,224,.3), transparent 70%); }
-.prod-tore .prod-deco { background:radial-gradient(circle, rgba(245,160,32,.3), transparent 70%); }
 .prod-bento .prod-deco { background:radial-gradient(circle, rgba(16,144,106,.3), transparent 70%); }
 
 .prod-icon {
@@ -704,29 +697,8 @@ footer {
         </div>
       </div>
 
-      <!-- トレログ -->
-      <div class="prod-card prod-tore reveal d3">
-        <div class="prod-icon">📔</div>
-        <div class="prod-deco"></div>
-        <div class="prod-card-body">
-          <div class="prod-tag prod-tag-orange">
-            <span class="dot"></span>公開中
-          </div>
-          <div class="prod-name">トレログ 📔</div>
-          <p class="prod-desc">
-            トレードにおけるルール管理と日記によるFOMO対策Webサービス。感情に流されない安定したトレードを支援します。
-          </p>
-          <div class="prod-chips">
-            <span class="prod-chip">トレード日記</span>
-            <span class="prod-chip">ルール管理</span>
-            <span class="prod-chip">Web</span>
-          </div>
-          <a href="https://steady-mind.vercel.app/" target="_blank" rel="noopener" class="prod-link" aria-label="トレログを開く"></a>
-        </div>
-      </div>
-
       <!-- Coming soon -->
-      <div class="prod-soon reveal d4">
+      <div class="prod-soon reveal d3">
         <span class="prod-soon-icon">🚀</span>
         <span class="prod-soon-title">次のプロダクトを開発中…</span>
         <span class="prod-soon-sub">モバイルアプリなど、新しいプロダクトが続々登場予定です。</span>
@@ -814,7 +786,7 @@ footer {
     <div class="about-grid">
       <div class="stat-grid reveal d1">
         <div class="stat-box">
-          <div class="stat-num">3+</div>
+          <div class="stat-num">2+</div>
           <div class="stat-lbl">公開プロダクト</div>
         </div>
         <div class="stat-box">
